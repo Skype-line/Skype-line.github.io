@@ -52,14 +52,6 @@ ul.posts li {
     list-style: none;
 }
 
-div.art_thumbnail_box {
-	float: left;
-	width: 100px;
-	height: 200px;
-	margin: 10px;
-	border: 1px solid #000000;  
-}
-
 div.video-responsive{
     overflow:hidden;
     padding-bottom:56.25%;
