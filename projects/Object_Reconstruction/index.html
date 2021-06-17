@@ -1,0 +1,63 @@
+---
+layout: default
+title: "Object Reconstruction with Depth Error Compensation Using Azure Kinect"
+---
+
+<center><h1>{{ page.title }}</h1></center>
+
+<td>
+	<center>
+		<img style="vertical-align:middle" src="Object_Reconstruction_framework.png"  width="60%" height="inherit"/>
+		<br>Framework of object reconstruction with depth error compensation using Azure Kinect
+	</center>
+</td>
+
+<br>
+	
+<td>
+	<hr>
+	<h3 style="margin-bottom:10px;">Abstract</h3>
+	Classical 3D reconstruction methods have the built-in
+	problem of not being able to separate the object of interest 
+	from the rest of the scene. Most methods also suffer from
+	shape distortion caused by inaccurate depth measurement
+	or estimation. In this paper, we present a method for 
+	creating precise object meshes automatically based on 
+	existing SLAM frameworks (ORB-SLAM2 & BADSLAM) alongside
+	a learning-based depth error compensation mechanism for
+	Time-of-Flight cameras. We demonstrate the effectiveness
+	of our method by using the Azure Kinect RGBD camera to
+	reconstruct various objects. We also conduct experiments
+	showing better performance of our depth error compensation 
+	mechanism compared with the classical depth correction 
+	method adopted by BADSLAM.
+</td>
+
+<td>
+	<h3> Paper: [<a href="Object Reconstruction with Depth Error Compensation Using Azure Kinect.pdf">PDF</a>] &nbsp; &nbsp; &nbsp; Appendix: [<a href="Object Reconstruction with Depth Error Compensation Using Azure Kinect(appendix).pdf">PDF</a>] &nbsp; &nbsp; &nbsp; Code: [<a href="https://github.com/panpan2/3DReconstruct">GitHub</a>] </h3>
+</td>
+
+<td>
+	<center>
+		<img style="vertical-align:middle" src="Depth_error_compensation_framework.png"  width="60%" height="inherit"/>			
+		<br> Framework of depth error compensation
+	</center>
+	<h3 style="margin-bottom:10px;">Experiment Results</h3>
+	<center>
+		<img style="vertical-align:middle" src="Object_Reconstruction_result.png"  width="30%" height="inherit"/>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<img style="vertical-align:middle" src="Depth_error_compensation_result.png"  width="40%" height="inherit"/>
+	</center>
+	<br>
+	Left: 3D surface reconstruction of a person (left) and a
+	face (right). The top row are input point clouds, the middle
+	row are reconstructed mesh using Poisson Surface Recon-
+	struction, the bottom row are ones after cropping the redun-
+	dant parts.
+	Right: Mean (left column) and standard deviation (right
+	column) of depth error at each pixel among 100 original
+	images (a)-(b) and corrected images using neural network
+	(c)-(d) and random forest (e)-(f)
+</td>
+
+

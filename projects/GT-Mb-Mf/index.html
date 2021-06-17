@@ -1,0 +1,52 @@
+---
+layout: default
+title: "Gradual Transition From Model-Based to Model-Free Actor-Critic Reinforcement Learning"
+---
+
+<center><h1>{{ page.title }}</h1></center>
+
+<td>
+	<center>
+		<img style="vertical-align:middle" src="GT-Mb-Mf_framework.png"  width="60%" height="inherit"/>		
+	</center>
+	<div style="max-width:1200px; word-wrap:break-word; margin: 0 auto">
+	Framework of the second training stage of our method. The interaction data is recorded in a replay buffer, that learn 
+	the dynamics model and reward model. The data pairs are also extended to longer trajectories using model-based prediction 
+	<br>and planning, which can guide policy learning and value learning. The updated policy is again utilized for generating 
+	new interaction data. The planning horizon is gradually reduced during training.
+	</div>	
+</td>
+
+<br>
+	
+<td>
+	<hr>
+	<h3 style="margin-bottom:10px;">Abstract</h3>
+	Model-free reinforcement learning methods could achieve very 
+	good performance but typically requires a substantial amount of 
+	data collection for convergence. On the other hand, model-based 
+	methods tend to be more sample efficient but suffer from the bias of 
+	the learned models. In this work, we aim to combine the advantages 
+	of these approaches. We design a model-based learning framework 
+	that is integrated with value learning. By gradually reducing the
+	planning horizon, it transforms into pure model-free actor-critic
+	learning as the training goes. The experiments show that, for 
+	environments with relatively stable dynamics and lower dimensions
+	for action space, our proposed method reaches high performance
+	faster compared with baselines. The code is publicly available.
+</td>
+
+<td>
+	<h3> Paper: [<a href="DL_Report_GT-Mb-Mf.pdf">PDF</a>] &nbsp; &nbsp; &nbsp; Code: [<a href="https://github.com/Skype-line/GT-Mb-Mf">GitHub</a>] </h3>
+</td>
+
+<td>
+	<h3 style="margin-bottom:10px;">Algorithm</h3>
+	<img style="vertical-align:middle" src="GT-Mb-Mf_algorithm.png"  width="40%" height="inherit"/>
+	<h3 style="margin-bottom:10px;">Experiment Results</h3>
+	<!-- <center> -->
+		<img style="vertical-align:middle" src="GT-Mb-Mf_result.png"  width="60%" height="inherit"/>			
+	<!-- </center> -->
+</td>
+
+

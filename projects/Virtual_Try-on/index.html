@@ -1,0 +1,48 @@
+---
+layout: default
+title: "Virtual Try-on based on Generative Adversarial Networks"
+---
+
+<center><h1>{{ page.title }}</h1></center>
+
+<td>
+	<center>
+	<img style="vertical-align:middle" src="shape_framework.png"  width="45%" height="inherit"/>
+	<img style="vertical-align:middle" src="texture_framework.png"  width="45%" height="inherit"/></center>
+</td>
+
+<br>
+	
+<td>
+	<hr>
+	<h3 style="margin-bottom:10px;">Abstract</h3>
+	In this work, we transform the virtual try-on mission into a fashion image
+	completion task. That is, given a portrait missing a piece of clothing, we want to
+	generate a complete fashion image with high realism, diversity and compatibility. By
+	proposing a two-stage fashion image completion network, we divide the generation
+	process into two sub-processes: shape generation and texture synthesis, which realize
+	hierarchical control of shape and texture, and improve the realism of the generated
+	image. In each sub-process, we use the idea of Variational Autoencoder: map the control
+	information to the latent space and then utilize the random sampling to realize the
+	variety of generated images. At the same time, we introduce two interrelated encoders to
+	explicitly control the compatibility among clothing items. In addition, we use methods
+	such as generative adversarial networks, attention mechanism, and spectral
+	normalization to further improve the quality of generated images and stabilize the
+	training process. We test our model on DeepFashion dataset and compare our model
+	with other similar work, the result of which confirm that our model has excellent
+	performance in the fashion image completion task.
+</td>
+
+<td>
+	<h3> Bachelor Thesis: [<a href="电子科技大学学士学位论文.pdf">PDF</a>] &nbsp; &nbsp; &nbsp; Code: [<a href="https://github.com/Skype-line/FiNet-pytorch">GitHub</a>] </h3>
+</td>
+
+<tr>
+	<h3 style="margin-bottom:10px;">Experiment Results</h3>
+	<center>
+		<img style="vertical-align:middle" src="Virtual_Try-on_result1.png"  width="70%" height="inherit"/>
+		<img style="vertical-align:middle" src="Virtual_Try-on_result2.png"  width="70%" height="inherit"/>
+		<br>Comparison of different image generation methods and ablation test.
+	</center>
+	<br>
+</tr>

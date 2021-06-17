@@ -1,0 +1,56 @@
+---
+layout: default
+title: "Continual learning for Binary Foreground and Background Segmentation"
+---
+
+<center><h1>{{ page.title }}</h1></center>
+
+<td>
+	<center>
+		<img style="vertical-align:middle" src="Continual_Learning_dataset.png"  width="60%" height="inherit"/>		
+	</center>
+</td>
+
+<br>
+	
+<td>
+	<hr>
+	<h3 style="margin-bottom:10px;">Abstract</h3>
+	Continual learning is of great importance for autonomous agents since it is 
+	impossible to provide the artificial intelligent with all the knowledge it 
+	need in the real world. While previous work has proposed a large amount of 
+	continual learning methods, little research has been done on the segmentation 
+	task. For autonomous mobile robots, the differentiation of foreground and 
+	background matters a lot for the safety consideration. Therefore, we aim to 
+	solve the continual learning for binary foreground and background segmentation task. 
+
+	To mitigate catastrophic forgetting, the biggest problem of continual learning, 
+	we totally implement five continual learning methods including <b>fine-tuning 
+	(baseline), output distillation, feature distillation, EWC and Progress & Compress</b>. 
+	Apart from the naive fine-tuning, the last four methods all adopt techniques to 
+	preserve the old knowledge. The first three add regularization terms on the output 
+	space, feature space and weight space respectively. The last one reuses the old 
+	parameters with a layerwise lateral connection in the model architecture. We evaluate 
+	and compare those methods on NYU and CLA dataset of different types of scene. 
+	The result demonstrates that continual learning methods can prevent catastrophic 
+	forgetting to a certain degree only when the old scene and new scene are similar. 
+	When two scenes differ a lot, the regularization-based methods may not be a good choice.
+</td>
+
+<td>
+	<h3> Thesis: [<a href="Continual Learning for Binary Foreground and Background Segmentation.pdf">PDF</a>] </h3>
+</td>
+
+<td>
+	<h3 style="margin-bottom:10px;">Pipeline of methods</h3>
+	<center>
+		<img style="vertical-align:middle" src="Continual_Learning_methods_diagram.png"  width="80%" height="inherit"/>			
+	</center>
+	<h3 style="margin-bottom:10px;">Experiment Results</h3>
+	<center>
+		<img style="vertical-align:middle" src="Continual_Learning_experiment_setup.png"  width="48%" height="inherit"/>			
+	<br>
+	<img style="vertical-align:middle" src="Continual_Learning_experiment_setup1.png"  width="48%" height="inherit"/>
+	<img style="vertical-align:middle" src="Continual_Learning_experiment_setup2.png"  width="48%" height="inherit"/>
+	</center>
+</td>
