@@ -1,34 +1,489 @@
----
-layout: default
-title: "Implicit Expressive Human Avatar"
----
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="X-Avatar, an animatible implicit human avatar model capable of capturing human body pose, hand pose, facial
+        expressions, and appearance. X-Avatar can be created from input 3D scans or RGB-D images.">
+  <meta name="keywords" content="X-Avatar, X-Humans">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>X-Avatar: Expressive Human Avatars</title>
 
-<center><h1>{{ page.title }}</h1></center>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
 
-<td>
-	<center>
-		<img style="vertical-align:middle" src="X-Avatar-teaser.png"  width="60%" height="inherit"/>		
-	</center>
-</td>
+    function gtag() {
+      dataLayer.push(arguments);
+    }
 
-<br>
-	
-<td>
-	<hr>
-	<h3 style="margin-bottom:10px;">Summary</h3>
-	We contribute:<br>
+    gtag('js', new Date());
 
-    The first expressive implicit human avatar model that captures body pose, hand pose, 
-	facial expressions and appearance in a holistic fashion.<br>
-    Part-aware initialization and sampling strategies, which together improve the quality 
-	of the results and keep training efficient.<br>
-    A new dataset consisting of 234 sequences, of high-quality textured scans showing 20 
-	participants with varied body and hand movements, and facial expressions, totalling 35,000 frames.
-</td>
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
 
-<td>
-	<h3> More details </h3>
-	Paper under review.
-</td>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <!-- <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://keunhong.com">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://hypernerf.github.io">
+            HyperNeRF
+          </a>
+          <a class="navbar-item" href="https://nerfies.github.io">
+            Nerfies
+          </a>
+          <a class="navbar-item" href="https://latentfusion.github.io">
+            LatentFusion
+          </a>
+          <a class="navbar-item" href="https://photoshape.github.io">
+            PhotoShape
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div> -->
+</nav>
 
 
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">X-Avatar: Expressive Human Avatars</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://skype-line.github.io/">Kaiyue Shen</a><sup>*1</sup>,</span>
+            <span class="author-block">
+              <a href="https://ait.ethz.ch/people/chen/">Chen Guo</a><sup>*1</sup>,</span>
+            <span class="author-block">
+              <a href="https://ait.ethz.ch/people/kamanuel/">Manuel Kaufmann</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://ait.ethz.ch/people/jzarate/">Juan Jose Zarate</a><sup>1</sup>,
+            </span><br>
+            <span class="author-block">
+              <a href="https://scholar.google.co.uk/citations?user=pZPD0hMAAAAJ&hl=en">Julien Valentin</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://ait.ethz.ch/people/song/">Jie Song</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://ait.ethz.ch/people/hilliges/">Otmar Hilliges</a><sup>1</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>ETH Z&uumlrich,</span>
+            <span class="author-block"><sup>2</sup>Microsoft</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2011.12948"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2011.12948"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/google/nerfies"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://github.com/google/nerfies/releases/tag/0.1"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+            </div>
+          </div>
+          <div class="is-size-4">
+            <span>CVPR2023 Paper</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser1" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/teaser1.mp4"
+                type="video/mp4">
+      </video>
+      <video id="teaser2" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/teaser2.mp4"
+                type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        <span class="X-Avatar">X-Avatar</span>, an animatible implicit human avatar model capable of capturing human body pose, hand pose, facial
+        expressions, and appearance. X-Avatar can be created from 3D scans or RGB-D images.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            We present X-Avatar, a novel avatar model that captures the full expressiveness of 
+            digital humans to bring about life-like experiences in telepresence, AR/VR and beyond.
+            Our method models bodies, hands, facial expressions and appearance in a holistic fashion 
+            and can be learned from either full 3D scans or RGB-D data.
+          </p>
+          <p> 
+            To achieve this, we propose a part-aware learned forward skinning module that can be driven 
+            by the parameter space of SMPL-X, allowing for expressive animation of X-Avatars.
+            To efficiently learn the neural shape and deformation fields, we propose novel part-aware 
+            sampling and initialization strategies.
+            This leads to higher fidelity results, especially for smaller body parts while maintaining 
+            efficient training despite increased number of articulated bones.
+            To capture the appearance of the avatar with high-frequency details, we extend the geometry 
+            and deformation fields with a texture network that is conditioned on pose, facial expression, 
+            geometry and the normals of the deformed surface.
+            We show experimentally that our method outperforms strong baselines in both data domains both 
+            quantitatively and qualitatively on the animation task.
+          </p>
+          <p>
+            To facilitate future research on expressive avatars we contribute a new dataset, called 
+            <span class="X-Humans">X-Humans</span>, containing 234 sequences of high-quality textured scans 
+            from 20 participants, totalling 35,000 data frames. 
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+
+    <!-- Method. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Method</h2>
+        <div class="content has-text-centered">
+          <video id="replay-video" autoplay controls preload playsinline height="100%">
+            <source src="./static/videos/method.mov"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="content has-text-centered">
+          <img src="./static/images/method_description.png" width="100%">
+          </img>
+        </div>
+      </div>
+    </div>
+    <!--/ Method. -->
+</section>
+
+<section class="section" id="dataset">
+  <div class="container is-max-desktop">
+    
+    <!-- Dataset. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Dataset</h2>
+        <div class="content has-text-centered">
+          <video id="replay-video" autoplay controls muted preload playsinline height="100%">
+            <source src="./static/videos/dataset.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+    <!--/ Dataset. -->
+  </div>
+</section>
+
+<section class="section" id="results">
+  <div class="container is-max-desktop">
+    <!-- Result. -->
+    <h2 class="title is-3">Results</h2>
+    <!-- Comparison. -->
+    <h3 class="title is-4">Comparison</h3>
+    <p>
+      Our method recovers better hand articulation and facial expression than 
+      other baselines on the animation task.
+    </p>
+    
+    <div class="columns is-centered">
+    
+      <!-- GRAB. -->
+      <div class="column">
+        <div class="content">
+          <p> </p>
+          <h4 class="title is-5">GRAB</h4>
+          <video id="GRAB" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/baseline_on_GRAB.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <!--/ GRAB. -->
+
+      <!-- X-Humans. -->
+      <div class="column">
+        <div class="content">
+          <p> </p>
+          <h4 class="title is-5">X-Humans</h4>
+          <video id="X-Humans" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/baseline_on_X_Humans.mov"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <!--/ X-Humans. -->
+    </div>
+    <!--/ Comparison. -->
+
+    <!-- Animation. -->
+    <h3 class="title is-4">Animation</h3>
+    <!-- <div class="columns is-centered"> -->
+      <!-- <div class="column is-full-width"> -->
+        <div class="content has-text-justified">
+          <p>
+            X-Avatars can be learned from multiple modalities.
+          </p>
+        </div>
+        <!-- Scan Version. -->
+        <h4 class="title is-5">Scan Version</h4>
+        <div class="content has-text-justified">
+          <p>
+            Upper: 3D scans used for training. Lower: Avatars driven by testing poses.
+          </p>
+        </div>
+        
+        <section class="hero is-light is-small">
+          <div class="hero-body">
+            <div class="container is-max-desktop">
+              <div id="results-carousel" class="carousel results-carousel">
+                <div class="item">
+                  <video poster="" id="P00034_scan" autoplay controls muted loop playsinline height="100%">
+                    <source src="./static/videos/Scan_1.mov"
+                            type="video/mp4">
+                  </video>
+                </div>
+                <div class="item">
+                  <video poster="" id="Max_scan" autoplay controls muted loop playsinline height="100%">
+                    <source src="./static/videos/Scan_2.mov"
+                            type="video/mp4">
+                  </video>
+                </div>
+                <div class="item">
+                  <video poster="" id="P00027_scan" autoplay controls muted loop playsinline height="100%">
+                    <source src="./static/videos/Scan_3.mov"
+                            type="video/mp4">
+                  </video>
+                </div>
+                <div class="item">
+                  <video poster="" id="P00024_scan" autoplay controls muted loop playsinline height="100%">
+                    <source src="./static/videos/Scan_4.mov"
+                            type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+        </section>
+        </br>
+        <!--/ Scan Version. -->
+
+        <!-- RGB-D Version. -->
+        <h4 class="title is-5">RGB-D Version</h4>
+        <div class="content has-text-justified">
+          <p>
+            Upper: RGB-D data used for training. Lower: Avatars driven by testing poses.
+          </p>
+        </div>
+        <section class="hero is-light is-small">
+          <div class="hero-body">
+            <div class="container is-max-desktop">
+              <div id="results-carousel" class="carousel results-carousel">
+                <div class="item">
+                  <video poster="" id="P00036_RGBD" autoplay controls muted loop playsinline height="100%">
+                    <source src="./static/videos/RGBD_1.mov"
+                            type="video/mp4">
+                  </video>
+                </div>
+                <div class="item">
+                  <video poster="" id="P00058_RGBD" autoplay controls muted loop playsinline height="100%">
+                    <source src="./static/videos/RGBD_2.mov"
+                            type="video/mp4">
+                  </video>
+                </div>
+                <div class="item">
+                  <video poster="" id="Chen_RGBD" autoplay controls muted loop playsinline height="100%">
+                    <source src="./static/videos/RGBD_3.mov"
+                            type="video/mp4">
+                  </video>
+                </div>
+                <div class="item">
+                  <video poster="" id="P00028_RGBD" autoplay controls muted loop playsinline height="100%">
+                    <source src="./static/videos/RGBD_4.mov"
+                            type="video/mp4">
+                  </video>
+              </div>
+            </div>
+          </div>
+        </section>
+        </br>
+        <!--/ RGB-D Version. -->
+        
+        <!-- More Qualitative Results. -->
+        <h4 class="title is-5">More Qualitative Results</h4>
+        <div class="content has-text-justified">
+          <p>
+            X-Avatars animated by motions extracted from monocular RGB videos.
+          </p>
+        </div>
+          <video id="replay-video" autoplay muted loop preload playsinline height="100%">
+            <source src="./static/videos/retarget_tennis.mov"
+                    type="video/mp4">
+          </video>
+          <video id="replay-video" autoplay muted loop preload playsinline height="100%">
+            <source src="./static/videos/retarget_dance.mov"
+                    type="video/mp4">
+          </video>
+        </br>
+        <!--/ More Qualitative Results. -->
+
+      <!-- </div> -->
+    <!-- </div> -->
+    <!--/ Animation. -->
+  </div>    
+</section>
+    
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{park2021nerfies,
+  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
+  title     = {Nerfies: Deformable Neural Radiance Fields},
+  journal   = {ICCV},
+  year      = {2021},
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This means you are free to borrow the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+            we just ask that you link back to this page in the footer.
+            Please remember to remove the analytics code included in the header of the website which
+            you do not want on your website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
